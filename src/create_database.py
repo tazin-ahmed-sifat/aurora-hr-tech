@@ -2,37 +2,84 @@ import pandas as pd
 import sqlite3
 
 
-# Load the processed datasets
-employees = pd.read_csv("data/processed/employees.csv")
+# --------------------------------------------------
+# 1. LOAD PROCESSED DATA
+# --------------------------------------------------
 
-hotels = pd.read_csv("data/processed/hotels.csv")
+employees = pd.read_csv(
+    "data/processed/employees.csv"
+)
 
-recruitment = pd.read_csv("data/processed/recruitment.csv")
+hotels = pd.read_csv(
+    "data/processed/hotels.csv"
+)
 
-training = pd.read_csv("data/processed/training.csv")
+recruitment = pd.read_csv(
+    "data/processed/recruitment.csv"
+)
 
+training = pd.read_csv(
+    "data/processed/training.csv"
+)
 
-# Create/connect to the Aurora HR database
-connection = sqlite3.connect("data/aurora_hr.db")
-
-
-# Create employee table
-employees.to_sql("employees", connection, if_exists="replace", index=False)
-
-
-# Create hotel table
-hotels.to_sql("hotels", connection, if_exists="replace", index=False)
-
-
-# Create recruitment table
-recruitment.to_sql("recruitment", connection, if_exists="replace", index=False)
-
-
-# Create training table
-training.to_sql("training", connection, if_exists="replace", index=False)
+attrition_risk = pd.read_csv(
+    "data/processed/attrition_risk.csv"
+)
 
 
-# Close the database connection
+# --------------------------------------------------
+# 2. CONNECT TO SQLITE DATABASE
+# --------------------------------------------------
+
+connection = sqlite3.connect(
+    "data/aurora_hr.db"
+)
+
+
+# --------------------------------------------------
+# 3. CREATE DATABASE TABLES
+# --------------------------------------------------
+
+employees.to_sql(
+    "employees",
+    connection,
+    if_exists="replace",
+    index=False
+)
+
+hotels.to_sql(
+    "hotels",
+    connection,
+    if_exists="replace",
+    index=False
+)
+
+recruitment.to_sql(
+    "recruitment",
+    connection,
+    if_exists="replace",
+    index=False
+)
+
+training.to_sql(
+    "training",
+    connection,
+    if_exists="replace",
+    index=False
+)
+
+attrition_risk.to_sql(
+    "attrition_risk",
+    connection,
+    if_exists="replace",
+    index=False
+)
+
+
+# --------------------------------------------------
+# 4. CLOSE DATABASE CONNECTION
+# --------------------------------------------------
+
 connection.close()
 
 print("Aurora HR database created successfully.")

@@ -1,6 +1,7 @@
 import subprocess
 import sys
-
+import os
+os.makedirs("data/processed", exist_ok=True)
 # --------------------------------------------------
 # AURORA HR TECHNOLOGY PLATFORM
 # Full data platform build pipeline
